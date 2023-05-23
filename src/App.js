@@ -1,23 +1,23 @@
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect} from 'react';
+import { GetFirestoreData } from './findAll';
+import { saveData } from './Redux/actions';
 
 function App() {
+
+  const dispatch = useDispatch()
+
+  let accounts = useSelector(state=>state.data.accounts)
+  let rooms = useSelector(state=>state.data.rooms)
+
+  useEffect(()=>{
+    GetFirestoreData().then(a=>dispatch(saveData(a)))  
+  },[])
+  console.log(accounts, rooms)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+     
     </div>
   );
 }
