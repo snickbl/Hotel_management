@@ -1,0 +1,32 @@
+.auto_cont {
+    display: flex;
+    width: 800px;
+    margin: auto;
+    justify-content: flex-start;
+    flex-direction: column;
+    margin-top: 16%;
+    background-color: #ffffff;
+    flex-wrap: wrap;
+    border-radius: 8px;
+}
+
+.ant-form {
+    width: 600px;
+    height: 250px;
+    margin-top: 30px;
+}
+
+h4 {
+    margin: 20px auto 20px 20px;
+    font-family: 'Wix Madefor Display', sans-serif;
+    font-weight: 600;
+}
+
+hr {
+    color: #f7f7f7;
+    border: 1px solid rgb(243, 241, 243);
+}
+
+.login_btn {
+    width: 180px;
+}
