@@ -1,0 +1,79 @@
+.room_container {
+    margin: auto;
+    max-width: 1480px;
+    /* margin: 0 50px 0 50px; */
+}
+
+.fa-house {
+    color: #0478ff;
+    margin-right: 8px;
+}
+
+a {
+    color: #0478ff;
+}
+
+.home_return {
+    margin: 30px;
+}
+
+.info_container {
+    height: 400px;
+    display: flex;
+    justify-content: space-evenly;
+    margin-bottom: 100px;
+}
+
+.first {
+    width: 700px;
+}
+
+.sec_and_thd {
+    display: flex;
+    width: 700px;
+    
+}
+
+.second {
+    width: 350px;
+}
+
+.third {
+    width: 350px;
+}
+
+.content_info {
+    margin-left: 15px;
+}
+
+.content_info p {
+    margin-top: 10px;
+}
+
+h2 {
+    text-decoration: underline;
+}
+
+.check_btn {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: 20px;
+}
+
+.features_list {
+    margin-top: 20px;
+}
+
+li {
+    list-style-type: none;
+    margin-bottom: 5px;
+}
+
+.desc_cont {
+    display: flex;
+    margin: 30px;
+}
+
+.desc {
+    margin-left: 10px;
+}

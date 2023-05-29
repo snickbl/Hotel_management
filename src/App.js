@@ -21,13 +21,6 @@ function App() {
 
   // GetFirestoreData()
 
-  let history = useNavigate()
-
-  useEffect(() => {
-    if(!localStorage.getItem('app_token')){
-      history('/autorisation')
-    }
-  }, [])
 
 
   return (

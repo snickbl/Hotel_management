@@ -1,15 +1,21 @@
 import React from 'react'
 import './Header.css'
 import { Link, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 
 const Header = () => {
+
+  let accounts = useSelector(state=>state.accounts)
+
+  const user = localStorage.getItem('User')
 
   const history = useNavigate()
   
   const LogOutHendler = () => {
     localStorage.removeItem('app_token')
-    history('/autorisation')
+    sessionStorage.removeItem('app_token')
+    history('/login')
   }
 
 
@@ -36,9 +42,14 @@ const Header = () => {
                 </div>
             </div>
           </Link>
-          <div className='log_out' 
-            onClick={LogOutHendler}
-          ><i className="fa-solid fa-user"></i>Log Out</div>
+          <div className='photo_and_log'>
+            <div className='profile_photo'>
+              <img src={accounts[user]?.image} height='50px' width='50px' alt='profile_photo'/>
+            </div>
+            <div className='log_out' 
+              onClick={LogOutHendler}
+            >Log Out</div>
+          </div>
       </div>
     </div>
    

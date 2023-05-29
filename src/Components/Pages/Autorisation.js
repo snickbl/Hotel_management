@@ -33,7 +33,7 @@ export const Autorisation = () => {
 
 
   useEffect(()=> {
-    localStorage.getItem('app_token') && history('/')
+    (localStorage.getItem('app_token') || sessionStorage.getItem('app_token')) && history('/') 
   }, []);
 
   useEffect(()=>{
@@ -59,6 +59,8 @@ export const Autorisation = () => {
           if(remember === true){
             localStorage.setItem('app_token', JSON.stringify(data))
           }
+          localStorage.setItem('User', Object.keys(data))
+          sessionStorage.setItem('app_token', JSON.stringify(data))
           setTimeout(()=>history('/'), 1500)
           success()
     }else{error()}

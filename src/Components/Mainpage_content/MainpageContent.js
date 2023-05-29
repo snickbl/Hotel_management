@@ -4,7 +4,7 @@ import './MainpageContent.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { GetFirestoreData } from '../../findAll';
 import { saveRooms } from '../../Redux/actions';
-// import { saveData } from '../../Redux/actions';
+import { Link } from 'react-router-dom';
 
 const MainpageContent = () => {
 
@@ -16,17 +16,10 @@ const MainpageContent = () => {
 
   let rooms = useSelector(state=>state.rooms)
 
-  // console.log(rooms)
-
   const EmptyRooms = () => {
     let ListOfEmptyRooms =  rooms?.filter(room=> room.guest === '')
-
     dispatch(saveRooms(ListOfEmptyRooms))
-
-    console.log(rooms);
   }
-
-  // console.log(rooms?.filter(room=> room.guest === ''));
 
   const [filteredInfo, setFilteredInfo] = useState({});
   const [sortedInfo, setSortedInfo] = useState({});
@@ -55,12 +48,18 @@ const MainpageContent = () => {
 
   const setAgeSort = () => {
     onlyFreeRooms()
-    setSortedInfo({
-      order: 'descend',
-      columnKey: 'age',
-    });
+    // setSortedInfo({
+    //   order: 'descend',
+    //   columnKey: 'age',
+    // });
   };
-  
+
+  const clearAll = () => {
+    setFilteredInfo({})
+    setSortedInfo({})
+    GetFirestoreData(dispatch)
+  }
+
   const columns = [
     {
       title: 'Number',
@@ -183,9 +182,13 @@ const MainpageContent = () => {
       title: '',
       dataIndex: '',
       key: '',
+      render: (text, record, index)=> <Link to={`rooms/${text?.id}`}>
+         <Button style={{ background: '#0478FF', color: 'white' }}>More information</Button>
+        </Link>,
       ellipsis: true,
-    }
+    },
   ];
+
   return (
     <div className='contant_table'>
       <Space
@@ -195,6 +198,7 @@ const MainpageContent = () => {
       >
         <Button style={{ background: '#0478FF', color: 'white' }} onClick={clearFilters}>Clear filters</Button>
         <Button onClick={setAgeSort}>Free rooms only</Button>
+        <Button onClick={clearAll}>Clear filters and sorters</Button>
       </Space>
       <Table columns={columns} dataSource={rooms} onChange={handleChange} />
     </div>

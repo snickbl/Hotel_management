@@ -77,10 +77,23 @@
     font-weight: 600;
 }
 
+.log_out:hover {
+    cursor: pointer;
+}
+
 .fa-user {
     margin-right: 15px;
 }
 
 a {
     text-decoration: none;
+}
+
+.profile_photo {
+    margin-right: 15px;
+}
+
+.photo_and_log {
+    display: flex;
+    align-items: center;
 }
