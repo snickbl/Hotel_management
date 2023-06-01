@@ -4,7 +4,9 @@ import { Link, useParams } from "react-router-dom";
 import "./Room.css";
 import { useDispatch, useSelector } from "react-redux";
 import { GetFirestoreData } from "../../findAll";
-import { Button, Carousel } from "antd";
+import { Carousel } from "antd";
+import { CheckOut } from "./Check_Out/Check_Out";
+import { CheckIn } from "./Check_In/Check_In";
 
 export const Room = () => {
   const dispatch = useDispatch();
@@ -26,24 +28,15 @@ export const Room = () => {
 
   const carr = (index) => {
     if(roomInfo){
-      return <img width='700px' height='400px' src={roomInfo.gallery[index]}/>
+      return <img width='700px' height='400px' src={roomInfo.gallery[index]} alt="room_pic"/>
     }
   }
 
-  // const featureCreater = () => {
-  //   if(roomInfo){
-  //     roomInfo.features.map((el, index) => {
-  //       console.log('vsyo ok');
-  //       return (
-  //         <div id={index}>
-  //           el
-  //         </div>
-  //       )
-  //     })
-  //   }
-  // }
+  const checkin_btn = document.getElementById('checkin_btn')
 
-  // console.log(roomInfo);
+  if(roomInfo && !roomInfo.guest == ''){
+    checkin_btn?.setAttribute('disabled', null)
+  }
 
   return (
     <div>
@@ -79,15 +72,15 @@ export const Room = () => {
             </div>
             <div className="third">
               <div className="check_btn">
-                <Button>Check In</Button>
-                <Button style={{ background: '#0478FF', color: 'white', marginLeft:'15px' }}>Check Out</Button>
+                <div style={{marginRight: 2}}><CheckIn roomInfo={roomInfo}/></div>
+                <div><CheckOut room={roomInfo}/></div>
               </div>
               <div>
                 <strong className="strong_feat">Features:</strong>
                 <div>
                   <ul className="features_list">
                     {roomInfo?.features.map((item, index) => (
-                      <li key={index}><i class="fa-solid fa-check"></i> {item}</li>
+                      <li key={index}><i className="fa-solid fa-check"></i> {item}</li>
                     ))}
                   </ul>
                 </div>

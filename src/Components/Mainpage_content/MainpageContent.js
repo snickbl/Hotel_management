@@ -1,29 +1,28 @@
-import { Button, Space, Table } from 'antd';
-import { useEffect, useState } from 'react';
-import './MainpageContent.css'
-import { useDispatch, useSelector } from 'react-redux';
-import { GetFirestoreData } from '../../findAll';
-import { saveRooms } from '../../Redux/actions';
-import { Link } from 'react-router-dom';
+import { Button, Space, Table } from "antd";
+import { useEffect, useState } from "react";
+import "./MainpageContent.css";
+import { useDispatch, useSelector } from "react-redux";
+import { GetFirestoreData } from "../../findAll";
+import { saveRooms } from "../../Redux/actions";
+import { Link } from "react-router-dom";
 
 const MainpageContent = () => {
+  const dispatch = useDispatch();
 
-  const dispatch = useDispatch()
+  useEffect(() => {
+    GetFirestoreData(dispatch);
+  }, []);
 
-  useEffect(()=>{
-    GetFirestoreData(dispatch)
-  },[])
-
-  let rooms = useSelector(state=>state.rooms)
+  let rooms = useSelector((state) => state.rooms);
 
   const EmptyRooms = () => {
-    let ListOfEmptyRooms =  rooms?.filter(room=> room.guest === '')
-    dispatch(saveRooms(ListOfEmptyRooms))
-  }
+    let ListOfEmptyRooms = rooms?.filter((room) => room.guest === "");
+    dispatch(saveRooms(ListOfEmptyRooms));
+  };
 
   const [filteredInfo, setFilteredInfo] = useState({});
   const [sortedInfo, setSortedInfo] = useState({});
-  const [free, setFree] = useState(true)
+  const [free, setFree] = useState(true);
 
   const handleChange = (pagination, filters, sorter) => {
     setFilteredInfo(filters);
@@ -32,57 +31,57 @@ const MainpageContent = () => {
 
   const clearFilters = () => {
     setFilteredInfo({});
-    GetFirestoreData(dispatch)
+    GetFirestoreData(dispatch);
+    setFree(!free);
   };
 
   const onlyFreeRooms = () => {
-    setFree(!free)
-    freeSorter()
+    if (free) {
+      setFree(!free);
+    }
+    freeSorter();
   };
 
   const freeSorter = () => {
     if (free) {
-      EmptyRooms()
+      EmptyRooms();
     }
   };
 
   const setAgeSort = () => {
-    onlyFreeRooms()
-    // setSortedInfo({
-    //   order: 'descend',
-    //   columnKey: 'age',
-    // });
+    onlyFreeRooms();
   };
 
   const clearAll = () => {
-    setFilteredInfo({})
-    setSortedInfo({})
-    GetFirestoreData(dispatch)
-  }
+    setFilteredInfo({});
+    setSortedInfo({});
+    GetFirestoreData(dispatch);
+    setFree(!free);
+  };
 
   const columns = [
     {
-      title: 'Number',
-      dataIndex: 'number',
-      key: 'number',
+      title: "Number",
+      dataIndex: "number",
+      key: "number",
       ellipsis: true,
     },
     {
-      title: 'Type',
-      dataIndex: 'type',
-      key: 'type',
+      title: "Type",
+      dataIndex: "type",
+      key: "type",
       filters: [
         {
-          text: 'suite',
-          value: 'suite',
+          text: "suite",
+          value: "suite",
         },
         {
-          text: 'standard',
-          value: 'standard',
+          text: "standard",
+          value: "standard",
         },
         {
-          text: 'deluxe',
-          value: 'deluxe',
+          text: "deluxe",
+          value: "deluxe",
         },
       ],
       filteredValue: filteredInfo.type || null,
@@ -90,21 +89,21 @@ const MainpageContent = () => {
       ellipsis: true,
     },
     {
-      title: 'Occupancy',
-      dataIndex: 'occupancy',
-      key: 'occupancy',
+      title: "Occupancy",
+      dataIndex: "occupancy",
+      key: "occupancy",
       filters: [
         {
-          text: '4',
-          value: '4',
+          text: "4",
+          value: "4",
         },
         {
-          text: '3',
-          value: '3',
+          text: "3",
+          value: "3",
         },
         {
-          text: '2',
-          value: '2',
+          text: "2",
+          value: "2",
         },
       ],
       filteredValue: filteredInfo.occupancy || null,
@@ -112,66 +111,66 @@ const MainpageContent = () => {
       ellipsis: true,
     },
     {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
-      
+      title: "Price",
+      dataIndex: "price",
+      key: "price",
+
       sorter: (a, b) => a.price - b.price,
-      sortOrder: sortedInfo.columnKey === 'price' ? sortedInfo.order : null,
+      sortOrder: sortedInfo.columnKey === "price" ? sortedInfo.order : null,
       ellipsis: true,
     },
     {
-      title: 'Guest',
-      dataIndex: 'guest',
-      key: 'guest',
+      title: "Guest",
+      dataIndex: "guest",
+      key: "guest",
       filters: [
         {
-          text: 'Ratliff Schwartz',
-          value: 'Ratliff Schwartz',
+          text: "Ratliff Schwartz",
+          value: "Ratliff Schwartz",
         },
         {
-          text: 'Golden Branch',
-          value: 'Golden Branch',
+          text: "Golden Branch",
+          value: "Golden Branch",
         },
         {
-          text: 'Merritt Page',
-          value: 'Merritt Page',
+          text: "Merritt Page",
+          value: "Merritt Page",
         },
         {
-          text: 'Maggie Rollins',
-          value: 'Maggie Rollins',
+          text: "Maggie Rollins",
+          value: "Maggie Rollins",
         },
         {
-          text: 'Barker Frost',
-          value: 'Barker Frost',
+          text: "Barker Frost",
+          value: "Barker Frost",
         },
         {
-          text: 'Macias Nash',
-          value: 'Macias Nash',
+          text: "Macias Nash",
+          value: "Macias Nash",
         },
         {
-          text: 'Natalia Soto',
-          value: 'Natalia Soto',
+          text: "Natalia Soto",
+          value: "Natalia Soto",
         },
         {
-          text: 'Page Walton',
-          value: 'Page Walton',
+          text: "Page Walton",
+          value: "Page Walton",
         },
         {
-          text: 'Shelia Sanders',
-          value: 'Shelia Sanders',
+          text: "Shelia Sanders",
+          value: "Shelia Sanders",
         },
         {
-          text: 'Morgan Reed',
-          value: 'Morgan Reed',
+          text: "Morgan Reed",
+          value: "Morgan Reed",
         },
         {
-          text: 'Delgado Santana',
-          value: 'Delgado Santana',
+          text: "Delgado Santana",
+          value: "Delgado Santana",
         },
         {
-          text: 'Horne Downs',
-          value: 'Horne Downs',
+          text: "Horne Downs",
+          value: "Horne Downs",
         },
       ],
       filteredValue: filteredInfo.guest || null,
@@ -179,24 +178,33 @@ const MainpageContent = () => {
       ellipsis: true,
     },
     {
-      title: '',
-      dataIndex: '',
-      key: '',
-      render: (text, record, index)=> <Link to={`rooms/${text?.id}`}>
-         <Button style={{ background: '#0478FF', color: 'white' }}>More information</Button>
-        </Link>,
+      title: "",
+      dataIndex: "",
+      key: "",
+      render: (text, record, index) => (
+        <Link to={`rooms/${text?.id}`}>
+          <Button style={{ background: "#0478FF", color: "white" }}>
+            More information
+          </Button>
+        </Link>
+      ),
       ellipsis: true,
     },
   ];
 
   return (
-    <div className='contant_table'>
+    <div className="contant_table">
       <Space
         style={{
           marginBottom: 16,
         }}
       >
-        <Button style={{ background: '#0478FF', color: 'white' }} onClick={clearFilters}>Clear filters</Button>
+        <Button
+          style={{ background: "#0478FF", color: "white" }}
+          onClick={clearFilters}
+        >
+          Clear filters
+        </Button>
         <Button onClick={setAgeSort}>Free rooms only</Button>
         <Button onClick={clearAll}>Clear filters and sorters</Button>
       </Space>
